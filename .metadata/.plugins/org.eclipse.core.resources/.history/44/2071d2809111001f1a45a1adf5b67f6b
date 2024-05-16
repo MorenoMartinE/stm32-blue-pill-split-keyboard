@@ -1,0 +1,132 @@
+#include "main.h"
+#include "keypad_4x4.h"
+
+
+
+char Keypad_Get_Char(void)
+{
+	keyboardReportsDes HIDKeyboard={0,0,0,0,0,0};
+
+	HIDKeyboard.MODIFIER = 0x02;
+
+	HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R3_GPIO_Port, R3_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R4_GPIO_Port, R4_Pin, GPIO_PIN_SET);
+
+	if(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin (C1_GPIO_Port, C1_Pin)));
+		HAL_Delay(4);
+
+	}
+	if(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin)));
+		HAL_Delay(4);
+
+	}
+	if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)));
+		HAL_Delay(4);
+
+	}
+	if (!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin)));
+		HAL_Delay(4);
+
+	}
+
+	HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(R3_GPIO_Port, R3_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R4_GPIO_Port, R4_Pin, GPIO_PIN_SET);
+
+	if(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin)));
+		HAL_Delay(4);
+
+	}
+	if(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin)));
+		HAL_Delay(4);
+
+	}
+	if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)));
+		HAL_Delay(4);
+
+	}
+	if(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin)));
+		HAL_Delay(4);
+
+	}
+
+	HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R3_GPIO_Port, R3_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(R4_GPIO_Port, R4_Pin, GPIO_PIN_SET);
+
+	if(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin)));
+		HAL_Delay(4);
+
+	}
+	if(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin)));
+		HAL_Delay(4);
+
+	}
+	if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)));
+		HAL_Delay(4);
+
+	}
+	if(!(HAL_GPIO_ReadPin (C4_GPIO_Port, C4_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin)));
+		HAL_Delay(4);
+
+	}
+
+	HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R3_GPIO_Port, R3_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R4_GPIO_Port, R4_Pin, GPIO_PIN_RESET);
+
+	if(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin)));
+		HAL_Delay(4);
+
+	}
+	if(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin))){
+		HAL_Delay(4);
+		while (!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin)));
+		HAL_Delay(4);
+
+	}
+	if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)));
+		HAL_Delay(4);
+
+	}
+	if(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin)));
+		HAL_Delay(4);
+
+	}
+	return val_key;
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.internal.dialogs.WorkbenchEditorsDialog">
+		<item key="allPersp" value="false"/>
+		<item key="sort" value="0"/>
+		<list key="bounds">
+			<item value="1274"/>
+			<item value="410"/>
+			<item value="908"/>
+			<item value="610"/>
+		</list>
+		<list key="columns">
+			<item value="292"/>
+			<item value="586"/>
+		</list>
+	</section>
+</section>

@@ -1,0 +1,16 @@
+#ifndef INC_KEYPAD_4X4_H_
+#define INC_KEYPAD_4X4_H_
+typedef struct {
+	uint8_t MODIFIER;
+	uint8_t RESERVED;
+	uint8_t KEYCODE00;
+	uint8_t KEYCODE01;
+	uint8_t KEYCODE02;
+	uint8_t KEYCODE03;
+	uint8_t KEYCODE04;
+	uint8_t KEYCODE05;
+} keyboardReportsDes;
+
+void GET_key_code(keyboardReportsDes *HIDKeyboard);
+
+#endif

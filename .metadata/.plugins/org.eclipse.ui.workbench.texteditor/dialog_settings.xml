@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="KEYCODE01"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="KEYCODE00"/>
+			<item value="-&gt;"/>
+			<item value="while"/>
+			<item value="HID_MOUSE_REPORT_DESC_SIZE"/>
+			<item value="2=mouse"/>
+			<item value="1=MOUSE"/>
+			<item value="MOUSE"/>
+			<item value="mouse"/>
+			<item value="HIDKeyboard"/>
+			<item value="val_key"/>
+			<item value="    0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)&#x0A;    0x09, 0x06,                    // USAGE (Keyboard)&#x0A;    0xa1, 0x01,                    // COLLECTION (Application)&#x0A;    0x05, 0x07,                    //   USAGE_PAGE (Keyboard)&#x0A;    0x19, 0xe0,                    //   USAGE_MINIMUM (Keyboard LeftControl)&#x0A;    0x29, 0xe7,                    //   USAGE_MAXIMUM (Keyboard Right GUI)&#x0A;    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)&#x0A;    0x25, 0x01,                    //   LOGICAL_MAXIMUM (1)&#x0A;    0x75, 0x01,                    //   REPORT_SIZE (1)&#x0A;    0x95, 0x08,                    //   REPORT_COUNT (8)&#x0A;    0x81, 0x02,                    //   INPUT (Data,Var,Abs)&#x0A;    0x95, 0x01,                    //   REPORT_COUNT (1)&#x0A;    0x75, 0x08,                    //   REPORT_SIZE (8)&#x0A;    0x81, 0x03,                    //   INPUT (Cnst,Var,Abs)&#x0A;    0x95, 0x05,                    //   REPORT_COUNT (5)&#x0A;    0x75, 0x01,                    //   REPORT_SIZE (1)&#x0A;    0x05, 0x08,                    //   USAGE_PAGE (LEDs)&#x0A;    0x19, 0x01,                    //   USAGE_MINIMUM (Num Lock)&#x0A;    0x29, 0x05,                    //   USAGE_MAXIMUM (Kana)&#x0A;    0x91, 0x02,                    //   OUTPUT (Data,Var,Abs)&#x0A;    0x95, 0x01,                    //   REPORT_COUNT (1)&#x0A;    0x75, 0x03,                    //   REPORT_SIZE (3)&#x0A;    0x91, 0x03,                    //   OUTPUT (Cnst,Var,Abs)&#x0A;    0x95, 0x06,                    //   REPORT_COUNT (6)&#x0A;    0x75, 0x08,                    //   REPORT_SIZE (8)&#x0A;    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)&#x0A;    0x25, 0x65,                    //   LOGICAL_MAXIMUM (101)&#x0A;    0x05, 0x07,                    //   USAGE_PAGE (Keyboard)&#x0A;    0x19, 0x00,                    //   USAGE_MINIMUM (Reserved (no event indicated))&#x0A;    0x29, 0x65,                    //   USAGE_MAXIMUM (Keyboard Application)&#x0A;    0x81, 0x00,                    //   INPUT (Data,Ary,Abs)&#x0A;    0xc0                           // END_COLLECTION"/>
+			<item value="usb"/>
+			<item value="stdio"/>
+			<item value="Mouse"/>
+			<item value="USBD_HID_SecondReport"/>
+		</list>
+		<list key="replacehistory">
+			<item value="KEYCODE01"/>
+			<item value="."/>
+			<item value=","/>
+			<item value="&amp;HIDKeyboard"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1072"/>
+		<item key="DIALOG_Y_ORIGIN" value="192"/>
+		<item key="DIALOG_WIDTH" value="402"/>
+		<item key="DIALOG_HEIGHT" value="415"/>
+		<item key="DIALOG_FONT_NAME" value="1|Source Code Pro|10.0|0|GTK|1|"/>
+	</section>
+</section>

@@ -1,0 +1,141 @@
+#include "main.h"
+#include "keypad_4x4.h"
+
+typedef struct {
+	uint8_t MODIFIER;
+	uint8_t RESERVED;
+	uint8_t KEYCODE00;
+	uint8_t KEYCODE01;
+	uint8_t KEYCODE02;
+	uint8_t KEYCODE03;
+	uint8_t KEYCODE04;
+	uint8_t KEYCODE05;
+} keyboardReportsDes;
+
+char Keypad_Get_Char(void)
+{
+	keyboardReportsDes HIDKeyboard={0,0,0,0,0,0};
+
+	HIDKeyboard.MODIFIER = 0x02;
+
+	HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R3_GPIO_Port, R3_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R4_GPIO_Port, R4_Pin, GPIO_PIN_SET);
+
+	if(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin (C1_GPIO_Port, C1_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X04;
+	}
+	if(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X05;
+	}
+	if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X06;
+	}
+	if (!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X07;
+	}
+
+	HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(R3_GPIO_Port, R3_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R4_GPIO_Port, R4_Pin, GPIO_PIN_SET);
+
+	if(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X08;
+	}
+	if(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X09;
+	}
+	if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X10;
+	}
+	if(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X11;
+	}
+
+	HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R3_GPIO_Port, R3_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(R4_GPIO_Port, R4_Pin, GPIO_PIN_SET);
+
+	if(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X12;
+	}
+	if(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X13;
+	}
+	if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X14;
+	}
+	if(!(HAL_GPIO_ReadPin (C4_GPIO_Port, C4_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X15;
+	}
+
+	HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R3_GPIO_Port, R3_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(R4_GPIO_Port, R4_Pin, GPIO_PIN_RESET);
+
+	if(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X16;
+	}
+	if(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin))){
+		HAL_Delay(4);
+		while (!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X17;
+	}
+	if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X18;
+	}
+	if(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin))){
+		HAL_Delay(4);
+		while(!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin)));
+		HAL_Delay(4);
+		HIDKeyboard.KEYCODE00 = 0X19;
+	}
+	return HIDKeyboard;
+}

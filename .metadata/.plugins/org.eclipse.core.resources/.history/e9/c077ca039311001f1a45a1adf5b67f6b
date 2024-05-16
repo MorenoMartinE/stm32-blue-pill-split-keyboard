@@ -1,0 +1,6 @@
+#ifndef INC_KEYPAD_4X4_H_
+#define INC_KEYPAD_4X4_H_
+
+void GET_key_code(*keyboardReportsDes);
+
+#endif
