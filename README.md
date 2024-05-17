@@ -1,0 +1,1 @@
+Este es mi proyecto para un teclado personalizado de 37 teclas, basado en la placa de desarrollo stm32 blue pill. Por ahora el repo va a tener únicamente el código fuente que esté usando. Una vez que esté terminado y pueda refactorizar, voy a dejar el paso a paso del proceso de fabricación junto con fotos y anotaciones.
