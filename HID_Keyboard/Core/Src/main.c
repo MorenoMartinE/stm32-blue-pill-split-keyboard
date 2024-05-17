@@ -135,8 +135,8 @@ int main(void)
       			control = 4;
       		}
 
-      		if((!(HAL_GPIO_ReadPin(C5_GPIO_Port, C5_Pin))) && !(HAL_GPIO_ReadPin(C6_GPIO_Port, C6_Pin))){
-      			HIDKeyboard.MODIFIER = HIDKeyboard.MODIFIER + 0X08;
+      		if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)) && !(HAL_GPIO_ReadPin(C6_GPIO_Port, C6_Pin))){
+      			HIDKeyboard.MODIFIER = 0X08;
 			}
 
     	  	HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_RESET);
