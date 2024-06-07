@@ -116,7 +116,7 @@ int main(void)
 
     	    control = 0;
     	    HIDKeyboard.MODIFIER = 0X00;
-      		if (!(HAL_GPIO_ReadPin(C7_GPIO_Port, C7_Pin))){
+      		if (!(HAL_GPIO_ReadPin(C8_GPIO_Port, C8_Pin))){
     			HIDKeyboard.MODIFIER = 0X02;
       		}
 
@@ -128,17 +128,31 @@ int main(void)
       			HIDKeyboard.MODIFIER = HIDKeyboard.MODIFIER + 0X01;
     		}
 
-      		if (!(HAL_GPIO_ReadPin(C6_GPIO_Port, C6_Pin))){
+      		if (!(HAL_GPIO_ReadPin(C7_GPIO_Port, C7_Pin))){
       			HIDKeyboard.MODIFIER = HIDKeyboard.MODIFIER + 0X04;
       		}
 
-      		if (!(HAL_GPIO_ReadPin(C8_GPIO_Port, C8_Pin))){
-      			control = 4;
+      		if (!(HAL_GPIO_ReadPin(C9_GPIO_Port, C9_Pin))){
+      			if(control == 1){
+      				control = 3;
+      			}else{
+      				control = 4;
+      			}
       		}
 
-      		if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)) && !(HAL_GPIO_ReadPin(C6_GPIO_Port, C6_Pin))){
+      		if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)) && !(HAL_GPIO_ReadPin(C7_GPIO_Port, C7_Pin))){
       			HIDKeyboard.MODIFIER = 0X08;
 			}
+
+      		if ((!(HAL_GPIO_ReadPin(C8_GPIO_Port, C8_Pin))) && control == 3){
+      			*ptr_key = 0X39;
+      			if(ptr_key != &HIDKeyboard.KEYCODE06)
+				{
+					ptr_key++;
+				}else{
+					ptr_key = &HIDKeyboard.KEYCODE01;
+				}
+      		}
 
     	  	HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_RESET);
     	  	HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);
@@ -605,7 +619,7 @@ int main(void)
 							*ptr_key = 0X10;
 							break;
 						case 1:
-							*ptr_key = 0X32;
+							*ptr_key = 0X35;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -672,11 +686,10 @@ int main(void)
 							*ptr_key = 0X38;
 							break;
 						case 1:
-							if(HIDKeyboard.MODIFIER == 0x02){
-								*ptr_key = 0X3F;
-							}else{
-								*ptr_key = 0X2A;
-							}
+							*ptr_key = 0X2A;
+							break;
+						case 4:
+							*ptr_key = 0x4c;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -693,6 +706,7 @@ int main(void)
 		HIDKeyboard.KEYCODE02 = 0x00;
 		HIDKeyboard.KEYCODE03 = 0x00;
 		HIDKeyboard.KEYCODE04 = 0x00;
+		HIDKeyboard.KEYCODE05 = 0x00;
 		HIDKeyboard.KEYCODE05 = 0x00;
 
       /* USER CODE END 3 */
