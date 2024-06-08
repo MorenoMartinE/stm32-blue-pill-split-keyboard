@@ -605,7 +605,14 @@ int main(void)
 					}
 				}
 				if (!(HAL_GPIO_ReadPin(C7_GPIO_Port, C7_Pin))){
-					*ptr_key = 0X11;
+					switch(control){
+						case 0:
+							*ptr_key = 0x11;
+							break;
+						case 1:
+							*ptr_key = 0x65;
+							break;
+					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
 					{
 						ptr_key++;
@@ -707,7 +714,7 @@ int main(void)
 		HIDKeyboard.KEYCODE03 = 0x00;
 		HIDKeyboard.KEYCODE04 = 0x00;
 		HIDKeyboard.KEYCODE05 = 0x00;
-		HIDKeyboard.KEYCODE05 = 0x00;
+		HIDKeyboard.KEYCODE06 = 0x00;
 
       /* USER CODE END 3 */
 
