@@ -23,6 +23,7 @@
 ![Screenshot from 2024-06-08 16-51-55](https://github.com/MorenoMartinE/stm32-blue-pill-split-keyboard/assets/102624788/37c6e296-9296-4465-b7cb-95687581b752)
  
    GPIO:
+   
 ![Screenshot from 2024-06-08 18-10-23](https://github.com/MorenoMartinE/stm32-blue-pill-split-keyboard/assets/102624788/0fa68e1c-a033-4b70-b591-8b617864766e)
 ![Screenshot from 2024-06-08 18-10-36](https://github.com/MorenoMartinE/stm32-blue-pill-split-keyboard/assets/102624788/8cf3d09b-3ac5-4e40-b844-0f1df25ad62e)
 
