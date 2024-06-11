@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usb_device.h"
+#include "usb_hid_keys.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -108,87 +109,74 @@ int main(void)
       /* USER CODE BEGIN WHILE */
       while (1)
       {
-    	  uint8_t *ptr_key = &HIDKeyboard.KEYCODE01;
-    	  HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_SET);
-    	  HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);
-    	  HAL_GPIO_WritePin(R3_GPIO_Port, R3_Pin, GPIO_PIN_SET);
-    	  HAL_GPIO_WritePin(R4_GPIO_Port, R4_Pin, GPIO_PIN_RESET);
+			uint8_t *ptr_key = &HIDKeyboard.KEYCODE01;
+			HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(R3_GPIO_Port, R3_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(R4_GPIO_Port, R4_Pin, GPIO_PIN_RESET);
 
-    	    control = 0;
-    	    HIDKeyboard.MODIFIER = 0X00;
-      		if (!(HAL_GPIO_ReadPin(C8_GPIO_Port, C8_Pin))){
-    			HIDKeyboard.MODIFIER = 0X02;
-      		}
+			control = 0;
+			HIDKeyboard.MODIFIER = 0X00;
 
-      		if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
-      			control = 1;
-      		}
-
-      		if (!(HAL_GPIO_ReadPin(C5_GPIO_Port, C5_Pin))){
-      			HIDKeyboard.MODIFIER = HIDKeyboard.MODIFIER + 0X01;
-    		}
-
-      		if (!(HAL_GPIO_ReadPin(C7_GPIO_Port, C7_Pin))){
-      			HIDKeyboard.MODIFIER = HIDKeyboard.MODIFIER + 0X04;
-      		}
-
-      		if (!(HAL_GPIO_ReadPin(C9_GPIO_Port, C9_Pin))){
-      			if(control == 1){
-      				control = 3;
-      			}else{
-      				control = 4;
-      			}
-      		}
-
-      		if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)) && !(HAL_GPIO_ReadPin(C7_GPIO_Port, C7_Pin))){
-      			HIDKeyboard.MODIFIER = 0X08;
+			if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
+				control = USB_HID_KEYS.C1;
 			}
 
-      		if ((!(HAL_GPIO_ReadPin(C8_GPIO_Port, C8_Pin))) && control == 3){
-      			*ptr_key = 0X39;
-      			if(ptr_key != &HIDKeyboard.KEYCODE06)
-				{
-					ptr_key++;
-				}else{
-					ptr_key = &HIDKeyboard.KEYCODE01;
-				}
-      		}
+			if (!(HAL_GPIO_ReadPin(C9_GPIO_Port, C9_Pin))){
+				control = USB_HID_KEYS.C2;
+			}
+
+			if (!(HAL_GPIO_ReadPin(C8_GPIO_Port, C8_Pin))){
+				HIDKeyboard.MODIFIER = USB_HID_KEYS.SHIFT;
+			}
+
+			if (!(HAL_GPIO_ReadPin(C5_GPIO_Port, C5_Pin))){
+				HIDKeyboard.MODIFIER = HIDKeyboard.MODIFIER + USB_HID_KEYS.CTRL;
+			}
+
+			if (!(HAL_GPIO_ReadPin(C7_GPIO_Port, C7_Pin))){
+				HIDKeyboard.MODIFIER = HIDKeyboard.MODIFIER + USB_HID_KEYS.ALT;
+			}
+
+			if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin)) && !(HAL_GPIO_ReadPin(C7_GPIO_Port, C7_Pin))){
+				HIDKeyboard.MODIFIER = USB_HID_KEYS.GUI;
+			}
 
     	  	HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_RESET);
     	  	HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);
     	  	HAL_GPIO_WritePin(R3_GPIO_Port, R3_Pin, GPIO_PIN_SET);
     	  	HAL_GPIO_WritePin(R4_GPIO_Port, R4_Pin, GPIO_PIN_SET);
 
-				if(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin))){
-					switch(control){
+			if(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin))){
+				switch(control){
 					case 0:
-						*ptr_key = 0X14;
+						*ptr_key = USB_HID_KEYS.Q;
 						break;
 					case 1:
-						*ptr_key = 0X1E;
+						*ptr_key = USB_HID_KEYS.K1;
 						break;
-					case 4:
-						*ptr_key = 0x3A;
+					case 2:
+						*ptr_key = USB_HID_KEYS.F1;
 						break;
-					}
-					if(ptr_key != &HIDKeyboard.KEYCODE06)
-					{
-						ptr_key++;
-					}else{
-						ptr_key = &HIDKeyboard.KEYCODE01;
-					}
 				}
+				if(ptr_key != &HIDKeyboard.KEYCODE06)
+				{
+					ptr_key++;
+				}else{
+					ptr_key = &HIDKeyboard.KEYCODE01;
+				}
+			}
 
 				if(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0x1A;
+							*ptr_key = USB_HID_KEYS.W;
 							break;
 						case 1:
-							*ptr_key = 0X1F;
+							*ptr_key = USB_HID_KEYS.K2;
 							break;
-						case 4:
-							*ptr_key = 0x3B;
+						case  2:
+							*ptr_key = USB_HID_KEYS.F2;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -202,13 +190,13 @@ int main(void)
 				if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X08;
+							*ptr_key = USB_HID_KEYS.E;
 							break;
 						case 1:
-							*ptr_key = 0X20;
+							*ptr_key = USB_HID_KEYS.K3;
 							break;
-						case 4:
-							*ptr_key = 0x3C;
+						case  2:
+							*ptr_key = USB_HID_KEYS.F3;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -223,13 +211,13 @@ int main(void)
 				if (!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X15;
+							*ptr_key = USB_HID_KEYS.R;
 							break;
 						case 1:
-							*ptr_key = 0X21;
+							*ptr_key = USB_HID_KEYS.K4;
 							break;
-						case 4:
-							*ptr_key = 0x3D;
+						case  2:
+							*ptr_key = USB_HID_KEYS.F4;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -244,10 +232,10 @@ int main(void)
 					switch(control){
 
 						case 0:
-							*ptr_key = 0X17;
+							*ptr_key = USB_HID_KEYS.T;
 							break;
 						case 1:
-							*ptr_key = 0X22;
+							*ptr_key = USB_HID_KEYS.K5;
 							break;
 					 }
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -261,10 +249,10 @@ int main(void)
 			   if (!(HAL_GPIO_ReadPin(C6_GPIO_Port, C6_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X1C;
+							*ptr_key = USB_HID_KEYS.Y;
 							break;
 						case 1:
-							*ptr_key = 0X23;
+							*ptr_key = USB_HID_KEYS.K6;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -278,10 +266,10 @@ int main(void)
 			   if (!(HAL_GPIO_ReadPin(C7_GPIO_Port, C7_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X18;
+							*ptr_key = USB_HID_KEYS.U;
 							break;
 						case 1:
-							*ptr_key = 0X24;
+							*ptr_key = USB_HID_KEYS.K7;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -295,10 +283,10 @@ int main(void)
 			   if (!(HAL_GPIO_ReadPin(C8_GPIO_Port, C8_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X0C;
+							*ptr_key = USB_HID_KEYS.I;
 							break;
 						case 1:
-							*ptr_key = 0X25;
+							*ptr_key = USB_HID_KEYS.K8;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -312,10 +300,10 @@ int main(void)
 			   if (!(HAL_GPIO_ReadPin(C9_GPIO_Port, C9_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X12;
+							*ptr_key = USB_HID_KEYS.O;
 							break;
 						case 1:
-							*ptr_key = 0X26;
+							*ptr_key = USB_HID_KEYS.K9;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -329,13 +317,13 @@ int main(void)
 			   if (!(HAL_GPIO_ReadPin(C10_GPIO_Port, C10_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X13;
+							*ptr_key = USB_HID_KEYS.P;
 							break;
 						case 1:
-							*ptr_key = 0X27;
+							*ptr_key = USB_HID_KEYS.K0;
 							break;
-						case 4:
-							*ptr_key = 0x46;
+						case  2:
+							*ptr_key = USB_HID_KEYS.PRINT;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -354,13 +342,13 @@ int main(void)
 				if(!(HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X04;
+							*ptr_key = USB_HID_KEYS.A;
 							break;
 						case 1:
-							*ptr_key = 0X29;
+							*ptr_key = USB_HID_KEYS.ESC;
 							break;
-						case 4:
-							*ptr_key = 0x3E;
+						case  2:
+							*ptr_key = USB_HID_KEYS.F5;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -373,10 +361,10 @@ int main(void)
 				if(!(HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin))){
 					switch(control){
 					case 0:
-						*ptr_key = 0X16;
+						*ptr_key = USB_HID_KEYS.S;
 						break;
-					case 4:
-						*ptr_key = 0x3F;
+					case  2:
+						*ptr_key = USB_HID_KEYSN.F6;
 						break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -389,10 +377,10 @@ int main(void)
 				if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
 					switch(control){
 					case 0:
-						*ptr_key = 0X07;
+						*ptr_key = USB_HID_KEYS.D;
 						break;
-					case 4:
-						*ptr_key = 0x40;
+					case  2:
+						*ptr_key = USB_HID_KEYS.F7;
 						break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -405,10 +393,10 @@ int main(void)
 				if (!(HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin))){
 					switch(control){
 					case 0:
-						*ptr_key = 0X09;
+						*ptr_key = USB_HID_KEYS.F;
 						break;
-					case 4:
-						*ptr_key = 0x41;
+					case  2:
+						*ptr_key = USB_HID_KEYS.F8;
 						break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -421,7 +409,7 @@ int main(void)
 				if (!(HAL_GPIO_ReadPin(C5_GPIO_Port, C5_Pin))){
 					switch(control){
 					case 0:
-						*ptr_key = 0X0A;
+						*ptr_key = USB_HID_KEYS.G;
 						break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -434,13 +422,13 @@ int main(void)
 				if (!(HAL_GPIO_ReadPin(C6_GPIO_Port, C6_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X0B;
+							*ptr_key = USB_HID_KEYS.H;
 							break;
 						case 1:
-							*ptr_key = 0X2F;
+							*ptr_key = USB_HID_KEYS.LCORCH;
 							break;
-						case 4:
-							*ptr_key = 0X50;
+						case  2:
+							*ptr_key = USB_HID_KEYS.FIZ;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -453,13 +441,13 @@ int main(void)
 				if (!(HAL_GPIO_ReadPin(C7_GPIO_Port, C7_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X0D;
+							*ptr_key = USB_HID_KEYS.J;
 							break;
 						case 1:
-							*ptr_key = 0X30;
+							*ptr_key = USB_HID_KEYS.RCORCH;
 							break;
-						case 4:
-							*ptr_key = 0X51;
+						case  2:
+							*ptr_key = USB_HID_KEYS.FAB;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -472,13 +460,13 @@ int main(void)
 				if (!(HAL_GPIO_ReadPin(C8_GPIO_Port, C8_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X0E;
+							*ptr_key = USB_HID_KEYS.K;
 							break;
 						case 1:
-							*ptr_key = 0X31;
+							*ptr_key = USB_HID_KEYS.BSLASH;
 							break;
-						case 4:
-							*ptr_key = 0X52;
+						case  2:
+							*ptr_key = USB_HID_KEYS.FAR;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -491,13 +479,13 @@ int main(void)
 				if (!(HAL_GPIO_ReadPin(C9_GPIO_Port, C9_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X0F;
+							*ptr_key = USB_HID_KEYS.L;
 							break;
 						case 1:
-							*ptr_key = 0X2D;
+							*ptr_key = USB_HID_KEYS.GUION;
 							break;
-						case 4:
-							*ptr_key = 0X4F;
+						case  2:
+							*ptr_key = USB_HID_KEYS.FDE;
 							break;
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
@@ -510,11 +498,14 @@ int main(void)
 				if (!(HAL_GPIO_ReadPin(C10_GPIO_Port, C10_Pin))){
 					switch(control){
 						case 0:
-							*ptr_key = 0X33;
+							*ptr_key = USB_HID_KEYS.PYCOMA;
 							break;
 						case 1:
-							*ptr_key = 0X2E;
+							*ptr_key = USB_HID_KEYS.IGUAL;
 							break;
+						case 2:
+							*prt_key = USB_HID_KEYS.BLOCKM;
+							break;	
 					}
 					if(ptr_key != &HIDKeyboard.KEYCODE06)
 					{
@@ -537,7 +528,7 @@ int main(void)
 					case 1:
 						*ptr_key = 0x4B;
 						break;
-					case 4:
+					case  2:
 						*ptr_key = 0x42;
 						break;
 					}
@@ -556,7 +547,7 @@ int main(void)
 						case 1:
 							*ptr_key = 0x4E;
 							break;
-						case 4:
+						case  2:
 							*ptr_key = 0x43;
 							break;
 					}
@@ -575,7 +566,7 @@ int main(void)
 						case 1:
 							*ptr_key = 0x4A;
 							break;
-						case 4:
+						case  2:
 							*ptr_key = 0x44;
 							break;
 					}
@@ -595,7 +586,7 @@ int main(void)
 						case 1:
 							*ptr_key = 0x4D;
 							break;
-						case 4:
+						case  2:
 							*ptr_key = 0x45;
 							break;
 					}
@@ -715,7 +706,7 @@ int main(void)
 						case 1:
 							*ptr_key = 0X2A;
 							break;
-						case 4:
+						case  2:
 							*ptr_key = 0x4c;
 							break;
 					}
