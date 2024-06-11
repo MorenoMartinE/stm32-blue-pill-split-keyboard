@@ -98,9 +98,10 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	//Esta estructura es para manejar mas facilmente los pines
   	typedef struct {
-		uint32_t Pin,
-		uint32_t GPIO_Port
+  		uint16_t Pin;
+  		GPIO_TypeDef* GPIO_Port;
 	} stm32GPIO;
+
 	//Estructura del reporte que se envia por protocolo HID a la computadora
   	typedef struct {
 	    uint8_t MODIFIER;
@@ -114,7 +115,7 @@ int main(void)
 	} keyboardReportsDes;
 
 	//Inicializacion de la esttructura con los pins de las filas
-	stm32GPIO GPIORows[] = {
+	stm32GPIO GPIORows[4] = {
 		{R1_Pin, R1_GPIO_Port},
 		{R2_Pin, R2_GPIO_Port},
 		{R3_Pin, R3_GPIO_Port},
@@ -122,7 +123,7 @@ int main(void)
 	};
 
 	//Inicializacion de la esttructura con los pins de las columnas
-	stm32GPIO GPIOCols[] = {
+	stm32GPIO GPIOCols[10] = {
 		{C1_Pin, C1_GPIO_Port},
 		{C2_Pin, C2_GPIO_Port},
 		{C3_Pin, C3_GPIO_Port},
@@ -133,180 +134,158 @@ int main(void)
 		{C8_Pin, C8_GPIO_Port},
 		{C9_Pin, C9_GPIO_Port},
 		{C10_Pin, C10_GPIO_Port}
-	}
+	};
 
 	//Inicializacion de la estructura con los pins repetidos para las estructuras de control
-	stm32GPIO GPIOControl[] = {
+	stm32GPIO GPIOControl[3] = {
 		{C8_Pin, C8_GPIO_Port},
 		{C5_Pin, C5_GPIO_Port},
 		{C7_Pin, C7_GPIO_Port}
-	}
+	};
 
-	uint8_t keyMatrix[][][] = {
-		{
-			{
-				{USB_HID_KEYS.Q},{USB_HID_KEYS.K1},{USB_HID_KEYS.F1}
-			},
-			{
-				{USB_HID_KEYS.W},{USB_HID_KEYS.K2},{USB_HID_KEYS.F2}
-			},
-			{
-				{USB_HID_KEYS.E},{USB_HID_KEYS.K3},{USB_HID_KEYS.K3}
-			},
-			{
-				{USB_HID_KEYS.R},{USB_HID_KEYS.K4},{USB_HID_KEYS.F4}
-			},
-			{
-				{USB_HID_KEYS.T},{USB_HID_KEYS.K5},{0x00}
-			},
-			{
-				{USB_HID_KEYS.Y},{USB_HID_KEYS.K6},{0x00}
-			},
-			{
-				{USB_HID_KEYS.U},{USB_HID_KEYS.K7},{0x00}
-			},
-			{
-				{USB_HID_KEYS.I},{USB_HID_KEYS.K8},{0x00}
-			},
-			{
-				{USB_HID_KEYS.O},{USB_HID_KEYS.K9},{0x00}
-			},
-			{
-				{USB_HID_KEYS.P},{USB_HID_KEYS.K0},{USB_HID_KEYS.PRINT}
-			}
-		},
-		{
-			{
-				{USB_HID_KEYS.A},{USB_HID_KEYS.ESC},{USB_HID_KEYS.F5}
-			},
-			{
-				{USB_HID_KEYS.S},{0x00},{USB_HID_KEYSN.F6}
-			},
-			{
-				{USB_HID_KEYS.D},{0x00},{USB_HID_KEYS.F7}
-			},
-			{
-				{USB_HID_KEYS.F},{0x00},{USB_HID_KEYS.F8}
-			},
-			{
-				{USB_HID_KEYS.G},{0x00},{0x00}
-			},
-			{
-				{USB_HID_KEYS.H},{USB_HID_KEYS.LCORCH},{USB_HID_KEYS.FIZ}
-			},
-			{
-				{USB_HID_KEYS.J},{USB_HID_KEYS.RCORCH},{USB_HID_KEYS.FAB}
-			},
-			{
-				{USB_HID_KEYS.K},{USB_HID_KEYS.BSLASH},{USB_HID_KEYS.FAR}
-			},
-			{
-				{USB_HID_KEYS.L},{USB_HID_KEYS.GUION},{USB_HID_KEYS.FDE}
-			},
-			{
-				{USB_HID_KEYS.PYCOMA},{USB_HID_KEYS.IGUAL},{USB_HID_KEYS.BLOCKM}
-			}
-		},
-		{
-			{
-				{USB_HID_KEYS.Z},{USB_HID_KEYS.PUP},{USB_HID_KEYS.F9}
-			},
-			{
-				{USB_HID_KEYS.Z},{USB_HID_KEYS.PDN},{USB_HID_KEYS.F10}
-			},
-			{
-				{USB_HID_KEYS.C},{USB_HID_KEYS.HOME},{USB_HID_KEYS.F11}
-			},
-			{
-				{USB_HID_KEYS.V},{USB_HID_KEYS.END},{USB_HID_KEYS.F12}
-			},
-			{
-				{USB_HID_KEYS.B},{0x00},{0x00}
-			},
-			{
-				{USB_HID_KEYS.ENTER},{USB_HID_KEYS.ENTER},{USB_HID_KEYS.ENTER}
-			},
-			{
-				{USB_HID_KEYS.N},{USB_HID_KEYS.APPMENU},{0x00}
-			},
-			{
-				{USB_HID_KEYS.M},{USB_HID_KEYS.BCOMILL},{0x00}
-			},
-			{
-				{USB_HID_KEYS.COMA},{USB_HID_KEYS.COMILLA},{0x00}
-			},
-			{
-				{USB_HID_KEYS.PUNTO},{USB_HID_KEYS.TAB},{0x00}
-			}
-		},
-		{
-			{
-				{0x00},{0x00},{0x00}
-			},
-			{
-				{0x00},{0x00},{0x00}
-			},
-			{
-				{0x00},{0x00},{0x00}
-			},
-			{
-				{USB_HID_KEYS.SPACE},{USB_HID_KEYS.SPACE},{USB_HID_KEYS.SPACE}
-			},
-			{
-				{0x00},{0x00},{0x00}
-			},
-			{
-				{0x00},{0x00},{0x00}
-			},
-			{
-				{0x00},{0x00},{0x00}
-			},
-			{
-				{0x00},{0x00},{0x00}
-			},
-			{
-				{0x00},{0x00},{0x00}
-			},
-			{
-				{USB_HID_KEYS.SLASH},{BACKS},{DELETE}
-			}
-		},
+	uint8_t keyMatrix[5][10][3] =
 		{
 			{
 				{
-					USB_HID_KEYS.SHIFT
+					Q,K1,F1
 				},
 				{
-					USB_HID_KEYS.SHIFT
+					W,K2,F2
 				},
 				{
-					USB_HID_KEYS.SHIFT
+					E,K3,F3
+				},
+				{
+					R,K4,F4
+				},
+				{
+					T,K5,VUP
+				},
+				{
+					Y,K6,PREV
+				},
+				{
+					U,K7,PLAY
+				},
+				{
+					I,K8,NEXT
+				},
+				{
+					O,K9,STOP
+				},
+				{
+					P,K0,PRINT
 				}
 			},
 			{
 				{
-					USB_HID_KEYS.CTRL
+					A,ESC,F5
 				},
 				{
-					USB_HID_KEYS.CTRL
+					S,0,F6
 				},
 				{
-					USB_HID_KEYS.CTRL
+					D,0,F7
+				},
+				{
+					F,0,F8
+				},
+				{
+					G,0,VDN
+				},
+				{
+					H,LCORCH,FIZ
+				},
+				{
+					J,RCORCH,FAB
+				},
+				{
+					K,BSLASH,FAR
+				},
+				{
+					L,GUION,FDE
+				},
+				{
+					PYCOMA,IGUAL,BLOCKM
 				}
 			},
 			{
 				{
-					USB_HID_KEYS.ALT
+					Z,PUP,F9
 				},
 				{
-					USB_HID_KEYS.GUI
+					X,PDN,F10
 				},
 				{
-					USB_HID_KEYS.ALT
+					C,HOME,F11
+				},
+				{
+					V,END,F12
+				},
+				{
+					B,0,MUTE
+				},
+				{
+					ENTER,ENTER,ENTER
+				},
+				{
+					N,APPMENU,0
+				},
+				{
+					M,BCOMILL,0
+				},
+				{
+					COMA,COMILLA,0
+				},
+				{
+					PUNTO,TAB,0x00
 				}
 			},
-		}
-	}
+			{
+				{
+					0,0,0
+				},
+				{
+					0,0,0
+				},
+				{
+					0,0,0
+				},
+				{
+					SPACE,SPACE,SPACE
+				},
+				{
+					0,0,0
+				},
+				{
+					0,0,0
+				},
+				{
+					0,0,0
+				},
+				{
+					0,0,0
+				},
+				{
+					0,0,0
+				},
+				{
+					SLASH,BACKS,DELETE
+				}
+			},
+			{
+				{
+					SHIFT,SHIFT,SHIFT
+				},
+				{
+					CTRL,CTRL,CTRL
+				},
+				{
+					ALT,GUI,ALT
+				},
+			}
+		};
+
 
 	//Inicializacion de la estructura para el reporte HID
 	keyboardReportsDes HIDKeyboard = {0,0,0,0,0,0,0,0};
@@ -324,36 +303,28 @@ int main(void)
 		//Coloco los pines en la posicion de inicio
 		for(int i = 0 ; i < 4; i++)
 		{
-			if(i == 3)
-			{
-				HAL_GPIO_WritePin(GPIORows[i].GPIO_Port, GPIORows[i].Pin, GPIO_PIN_RESET);
-			}
-			else
-			{
 				HAL_GPIO_WritePin(GPIORows[i].GPIO_Port, GPIORows[i].Pin, GPIO_PIN_SET);
-			}
 		}
+		HAL_GPIO_WritePin(GPIORows[3].GPIO_Port, GPIORows[3].Pin, GPIO_PIN_RESET);
 
 		//Defino la capa donde se esta trabajando segun los dos botones internos que no modifican directametne
 		//el reporte de teclad (fnL y fnR)
 		if(!(HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin))){
-			control = USB_HID_KEYS.C1;
+			control = C1;
 		}
 
 		if (!(HAL_GPIO_ReadPin(C9_GPIO_Port, C9_Pin))){
-			control = USB_HID_KEYS.C2;
+			control = C2;
 		}
 
 		//Compruebo que botones estan siendo pulsados paca configurar los modificadores y las capas de teclado
 		for(int i = 0; i < 3; i++)
 		{
-			if(!(HAL_GPIO_ReadPin(GPIOControls[i].GPIO_Port, GPIOControls[i].Pin)))
+			if(!(HAL_GPIO_ReadPin(GPIOControl[i].GPIO_Port, GPIOControl[i].Pin)))
 			{
 				HIDKeyboard.MODIFIER = keyMatrix[4][i][control] + HIDKeyboard.MODIFIER;
 			}
 		}
-
-
 
 		//for que recorre las filas
 		for(int i = 0; i < 4; i++)
@@ -362,13 +333,13 @@ int main(void)
 			//leer durante este ciclo.
 			for(int j = 0; j < 4; j++)
 			{
-				if(i == j)
+				if(j == i)
 				{
-					HAL_GPIO_WritePin(GPIORows[i].GPIO_Port, GPIORows[i].Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIORows[j].GPIO_Port, GPIORows[j].Pin, GPIO_PIN_RESET);
 				}
 				else
 				{
-					HAL_GPIO_WritePin(GPIORows[i].GPIO_Port, R4_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(GPIORows[j].GPIO_Port, GPIORows[j].Pin, GPIO_PIN_SET);
 				}
 			}
 
@@ -403,7 +374,14 @@ int main(void)
 		HAL_Delay(25);
 		//Limpio todas las variabes necesarias antes de que vuelva a arrancar el loop
 		//principal de la aplicacion.
-		HIDKeyboard = {0,0,0,0,0,0,0,0};
+		HIDKeyboard.MODIFIER  = 0x00;
+		HIDKeyboard.RESERVED  = 0x00;
+		HIDKeyboard.KEYCODE01 = 0x00;
+		HIDKeyboard.KEYCODE02 = 0x00;
+		HIDKeyboard.KEYCODE03 = 0x00;
+		HIDKeyboard.KEYCODE04 = 0x00;
+		HIDKeyboard.KEYCODE05 = 0x00;
+		HIDKeyboard.KEYCODE06 = 0x00;
 		control = 0;
 
       /* USER CODE END 3 */

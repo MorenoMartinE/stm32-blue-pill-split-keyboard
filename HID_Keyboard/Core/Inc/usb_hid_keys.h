@@ -101,13 +101,13 @@
 #define APPMENU 0x65
 
 
-
-
-
-
-
+// Media
+#define VUP		0xed
+#define VDN		0xee
+#define MUTE	0xef
+#define PLAY	0xe8
+#define PREV	0xea
+#define NEXT	0xeb
+#define STOP	0xe9
 
 #endif
-
-
-#include "usb_hid_keys.h"

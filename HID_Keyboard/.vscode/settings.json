@@ -1,0 +1,6 @@
+{
+    "stm32-for-vscode.openOCDPath": "/home/martin/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/openocd/0.12.0-3.1/.content/bin/openocd",
+    "stm32-for-vscode.armToolchainPath": "/home/martin/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/13.2.1-1.1.1/.content/bin",
+    "cortex-debug.armToolchainPath": "/home/martin/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/13.2.1-1.1.1/.content/bin",
+    "cortex-debug.openocdPath": "/home/martin/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/openocd/0.12.0-3.1/.content/bin/openocd"
+}
