@@ -1,4 +1,4 @@
-../Core/Src/main.c:67:5:main	344	static
-../Core/Src/main.c:397:6:SystemClock_Config	88	static
-../Core/Src/main.c:443:13:MX_GPIO_Init	40	static
-../Core/Src/main.c:490:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:68:5:main	344	static
+../Core/Src/main.c:398:6:SystemClock_Config	88	static
+../Core/Src/main.c:445:13:MX_GPIO_Init	40	static
+../Core/Src/main.c:492:6:Error_Handler	4	static,ignoring_inline_asm

@@ -64,6 +64,7 @@ static void MX_GPIO_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
+
 int main(void)
 {
 
@@ -94,7 +95,7 @@ int main(void)
 
 
 
-  
+
   /* USER CODE BEGIN 2 */
 	//Esta estructura es para manejar mas facilmente los pines
   	typedef struct {
@@ -292,7 +293,7 @@ int main(void)
 
 	//Short que se utiliza para definir en que capa del teclado estamos parados
 	short control = 0;
-	
+
 	//While loop que se ejecuta durante todo el funcionamiento del equipo
 	while (1)
 	{
@@ -414,6 +415,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
@@ -454,10 +456,10 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, R4_Pin|R3_Pin|R2_Pin|R1_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : C4_Pin C3_Pin C7_Pin C10_Pin
-                           C2_Pin C1_Pin */
-  GPIO_InitStruct.Pin = C4_Pin|C3_Pin|C7_Pin|C10_Pin
-                          |C2_Pin|C1_Pin;
+  /*Configure GPIO pins : C4_Pin C7_Pin C10_Pin C2_Pin
+                           C1_Pin C3_Pin */
+  GPIO_InitStruct.Pin = C4_Pin|C7_Pin|C10_Pin|C2_Pin
+                          |C1_Pin|C3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -469,8 +471,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : C9_Pin C8_Pin C6_Pin C5_Pin */
-  GPIO_InitStruct.Pin = C9_Pin|C8_Pin|C6_Pin|C5_Pin;
+  /*Configure GPIO pins : C8_Pin C6_Pin C5_Pin C9_Pin */
+  GPIO_InitStruct.Pin = C8_Pin|C6_Pin|C5_Pin|C9_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
